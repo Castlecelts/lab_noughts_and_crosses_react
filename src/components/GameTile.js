@@ -10,12 +10,12 @@ const GameTile = (props) => {
 
 
         props.handleOnClick(event.target.value)
-        event.target.disabled = true;
+        // event.target.disabled = true;
     }
 
     return (
         <>
-            <button className="tile" onClick={handleTileOnClick} value={props.index}>{props.value}</button>
+            <button className="tile" disabled = {props.disabled} onClick={handleTileOnClick} value={props.index}>{props.value}</button>
         </>
     )
 }

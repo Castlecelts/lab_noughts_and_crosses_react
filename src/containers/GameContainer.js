@@ -9,6 +9,7 @@ class GameContainer extends Component {
         super(props);
         this.state = {
             board: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            buttonDisabled: [false, false, false, false, false, false, false, false, false],
             winner: null,
             currentPlayer: 1,
             restart: true
@@ -18,23 +19,18 @@ class GameContainer extends Component {
     }
 
     handleOnClick(index) {
-        console.log(index);
-
         const newBoard = [...this.state.board];
-
         newBoard[index] = this.state.currentPlayer;
 
+        const newButtonDisabled = [...this.state.buttonDisabled];
+        newButtonDisabled[index] = true;
 
-        // console.log("pre nextPlayer " + this.state.currentPlayer);
         this.nextPlayer()
-        // console.log(" nextPlayer " + this.state.currentPlayer);
-
-        console.log("pre board " + this.state.board);
 
         const tempWinner = GameLogic.hasWon(newBoard)
 
-        this.setState({ board: newBoard, winner: tempWinner })
-        console.log("after board " + this.state.board);
+        this.setState({ board: newBoard, winner: tempWinner, buttonDisabled: newButtonDisabled })
+        console.log(this.state.buttonDisabled);
     }
 
 
@@ -48,22 +44,20 @@ class GameContainer extends Component {
     }
 
     killIt() {
-        this.setState({ restart: false })
-        this.setState({ restart: true })
 
         const newGameBoard = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        const newButtonDisabled = [false, false, false, false, false, false, false, false, false];
 
-        this.setState({ board: newGameBoard })
+        this.setState({ board: newGameBoard, buttonDisabled:newButtonDisabled })
 
     }
 
     render() {
-        let tempvariable = this.state.restart ? <GameBoard board={this.state.board} handleOnClick={this.handleOnClick} /> : null
 
         return (
             <>
                 <h1>Noughts and Crosses</h1>
-                {tempvariable}
+                <GameBoard board={this.state.board} buttonDisabled={this.state.buttonDisabled} handleOnClick={this.handleOnClick} />
                 <Result winner={this.state.winner} />
                 <button onClick={this.killIt}>Reset Game</button>
             </>

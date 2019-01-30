@@ -5,26 +5,26 @@ class GameLogic {
     }
 
     static hasWon = function (board) {
-        const horizontalIndex = [0, 1, 2];
-        horizontalIndex.forEach(element => {
-            GameLogic.horizontalCheck(board, element)
-        });
-        const verticalIndex = [0, 3, 7];
+        const verticalIndex = [0, 1, 2];
         verticalIndex.forEach(element => {
             GameLogic.verticalCheck(board, element)
+        });
+        const horizontalIndex = [0, 3, 6];
+        horizontalIndex.forEach(element => {
+            GameLogic.horizontalCheck(board, element)
         })
         GameLogic.diagonalCheck(board)
 
         return GameLogic.result
     }
 
-    static horizontalCheck = function (board, index) {
+    static verticalCheck = function (board, index) {
         if (board[index] === board[index + 3] && board[index] === board[index + 6] && board[index] !== 0) {
             GameLogic.result = board[index]
         }
     }
 
-    static verticalCheck = function (board, index) {
+    static horizontalCheck = function (board, index) {
         if (board[index] === board[index + 1] && board[index] === board[index + 2] && board[index] !== 0) {
             GameLogic.result = board[index]
         }
